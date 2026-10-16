@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alumni Directory | Alumni Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="directory">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Alumni Connect home">
+        <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+        <span>Alumni <strong>Connect</strong></span>
+      </a>
+      <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-controls="siteNav" aria-expanded="false">
+        <svg class="icon"><use href="icons.svg#i-menu"/></svg>
+      </button>
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="directory.html" aria-current="page">Alumni Directory</a>
+        <a class="nav-link" href="contributions.html">Contributions</a>
+        <div class="nav-actions" id="navAuth">
+          <a class="nav-link" href="login.html">Login</a>
+          <a class="btn btn-primary btn-sm" href="register.html">Register</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-banner">
+      <div class="container">
+        <h1>Alumni Directory</h1>
+        <p>Find classmates and colleagues by name, department, batch, company or job title. Only alumni who opted in appear here, and contact details such as email and phone are never shown.</p>
+      </div>
+    </section>
+
+    <div class="container directory-wrap">
+      <form class="toolbar" id="filterForm" role="search" onsubmit="return false">
+        <div class="search-box">
+          <svg class="icon"><use href="icons.svg#i-search"/></svg>
+          <label class="sr-only" for="searchInput">Search alumni</label>
+          <input class="input" id="searchInput" type="search" placeholder="Search name, company, job title, department or year" autocomplete="off">
+        </div>
+        <div>
+          <label class="sr-only" for="departmentFilter">Department</label>
+          <select class="select" id="departmentFilter"><option value="">All departments</option></select>
+        </div>
+        <div>
+          <label class="sr-only" for="yearFilter">Graduation year</label>
+          <select class="select" id="yearFilter"><option value="">All years</option></select>
+        </div>
+        <button class="btn btn-secondary" id="clearFilters" type="button">Clear filters</button>
+      </form>
+
+      <div class="results-meta">
+        <span id="resultCount" aria-live="polite">&nbsp;</span>
+      </div>
+
+      <div class="state" id="loadingState">
+        <div class="loader" role="status" aria-label="Loading"></div>
+        <p>Loading alumni…</p>
+      </div>
+
+      <div class="state state-error" id="errorState" hidden>
+        <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-alert-circle"/></svg></div>
+        <h3>We couldn't load the directory</h3>
+        <p id="errorMessage">Something went wrong. Please try again.</p>
+        <button class="btn btn-primary" id="retryBtn" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-refresh"/></svg> Try again</button>
+      </div>
+
+      <div class="state" id="emptyState" hidden>
+        <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-inbox"/></svg></div>
+        <h3>No alumni found</h3>
+        <p>Try a different search or clear the filters.</p>
+      </div>
+
+      <div class="alumni-grid" id="alumniGrid" hidden></div>
+
+      <nav class="pagination" id="pagination" aria-label="Directory pages" hidden>
+        <button class="btn btn-secondary btn-sm" id="prevPage" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-chevron-left"/></svg> Previous</button>
+        <span id="pageInfo" class="muted" aria-live="polite"></span>
+        <button class="btn btn-secondary btn-sm" id="nextPage" type="button">Next <svg class="icon icon-sm"><use href="icons.svg#i-chevron-right"/></svg></button>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="margin-top:0;border-top:0;padding-top:0">
+        <span>&copy; <span data-year>2026</span> Alumni Connect. Built for Object-Oriented Software Engineering.</span>
+        <span><a href="index.html">Home</a> &middot; <a href="login.html">Login</a> &middot; <a href="register.html">Register</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

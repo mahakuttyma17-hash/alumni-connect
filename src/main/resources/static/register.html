@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create account | Alumni Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="register">
+  <div class="auth-layout">
+    <aside class="auth-aside">
+      <a class="brand brand-light" href="index.html">
+        <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+        <span>Alumni <strong>Connect</strong></span>
+      </a>
+      <div>
+        <h2>Join your alumni network.</h2>
+        <p>Create an account to build your profile and become part of the community.</p>
+        <ul class="auth-points">
+          <li><svg class="icon"><use href="icons.svg#i-shield"/></svg> You control whether you appear in the directory</li>
+          <li><svg class="icon"><use href="icons.svg#i-lock"/></svg> Passwords are stored as secure hashes</li>
+          <li><svg class="icon"><use href="icons.svg#i-award"/></svg> Record your contributions to the institution</li>
+        </ul>
+      </div>
+      <p class="auth-aside-foot">&copy; <span data-year>2026</span> Alumni Connect</p>
+    </aside>
+
+    <main class="auth-main" id="main">
+      <div class="auth-card wide">
+        <a class="brand auth-mobile-brand" href="index.html">
+          <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+          <span>Alumni <strong>Connect</strong></span>
+        </a>
+        <h1>Create your account</h1>
+        <p class="muted">Fields marked <span class="req">*</span> are required.</p>
+
+        <div class="alert alert-error" id="formAlert" role="alert" hidden></div>
+
+        <form id="registerForm" novalidate>
+          <div class="form-grid">
+            <div class="field span-2">
+              <label for="fullName">Full name <span class="req">*</span></label>
+              <input class="input" id="fullName" name="fullName" type="text" autocomplete="name" maxlength="100" placeholder="e.g. Priya Raman" required>
+              <p class="field-error" data-error-for="fullName" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="email">Email address <span class="req">*</span></label>
+              <input class="input" id="email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="you@example.com" required>
+              <p class="field-error" data-error-for="email" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input class="input" id="phone" name="phone" type="tel" autocomplete="tel" maxlength="20" placeholder="Optional">
+              <p class="field-error" data-error-for="phone" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="department">Department <span class="req">*</span></label>
+              <select class="select" id="department" name="department" required>
+                <option value="">Select department</option>
+                <option>Computer Science and Engineering</option>
+                <option>Information Technology</option>
+                <option>Artificial Intelligence and Data Science</option>
+                <option>Electronics and Communication Engineering</option>
+                <option>Electrical and Electronics Engineering</option>
+                <option>Mechanical Engineering</option>
+                <option>Civil Engineering</option>
+                <option>Business Administration</option>
+                <option>Other</option>
+              </select>
+              <p class="field-error" data-error-for="department" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="degree">Degree <span class="req">*</span></label>
+              <select class="select" id="degree" name="degree" required>
+                <option value="">Select degree</option>
+                <option>B.E. / B.Tech</option>
+                <option>M.E. / M.Tech</option>
+                <option>MBA</option>
+                <option>MCA</option>
+                <option>B.Sc</option>
+                <option>M.Sc</option>
+                <option>Ph.D</option>
+                <option>Other</option>
+              </select>
+              <p class="field-error" data-error-for="degree" role="alert"></p>
+            </div>
+
+            <div class="field span-2">
+              <label for="graduationYear">Graduation year <span class="req">*</span></label>
+              <input class="input" id="graduationYear" name="graduationYear" type="number" inputmode="numeric" min="1950" placeholder="e.g. 2026" required>
+              <p class="field-error" data-error-for="graduationYear" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="password">Password <span class="req">*</span></label>
+              <div class="input-group">
+                <input class="input" id="password" name="password" type="password" autocomplete="new-password" maxlength="64" placeholder="Create a password" required>
+                <button class="toggle-btn" type="button" data-toggle-password="password" aria-label="Show password" aria-pressed="false">
+                  <svg class="icon eye-on"><use href="icons.svg#i-eye"/></svg>
+                  <svg class="icon eye-off" hidden><use href="icons.svg#i-eye-off"/></svg>
+                </button>
+              </div>
+              <p class="field-hint">8–64 characters with at least one letter and one number.</p>
+              <p class="field-error" data-error-for="password" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="confirmPassword">Confirm password <span class="req">*</span></label>
+              <div class="input-group">
+                <input class="input" id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" maxlength="64" placeholder="Repeat your password" required>
+                <button class="toggle-btn" type="button" data-toggle-password="confirmPassword" aria-label="Show password" aria-pressed="false">
+                  <svg class="icon eye-on"><use href="icons.svg#i-eye"/></svg>
+                  <svg class="icon eye-off" hidden><use href="icons.svg#i-eye-off"/></svg>
+                </button>
+              </div>
+              <p class="field-error" data-error-for="confirmPassword" role="alert"></p>
+            </div>
+
+            <div class="span-2">
+              <button class="btn btn-primary btn-block" id="submitBtn" type="submit">
+                <span class="spinner" aria-hidden="true"></span><span class="btn-label">Create account</span>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <p class="auth-switch">Already have an account? <a href="login.html">Sign in</a></p>
+        <p class="auth-switch" style="margin-top:.5rem"><a href="index.html">&larr; Back to home</a></p>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

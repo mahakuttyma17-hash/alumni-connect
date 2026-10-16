@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in | Alumni Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="login">
+  <div class="auth-layout">
+    <aside class="auth-aside">
+      <a class="brand brand-light" href="index.html">
+        <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+        <span>Alumni <strong>Connect</strong></span>
+      </a>
+      <div>
+        <h2>Welcome back to your alumni community.</h2>
+        <p>Sign in to update your profile, explore the directory and record your contributions.</p>
+        <ul class="auth-points">
+          <li><svg class="icon"><use href="icons.svg#i-users"/></svg> Reconnect with classmates and colleagues</li>
+          <li><svg class="icon"><use href="icons.svg#i-briefcase"/></svg> Keep your career details up to date</li>
+          <li><svg class="icon"><use href="icons.svg#i-heart"/></svg> Log donations and volunteering</li>
+        </ul>
+      </div>
+      <p class="auth-aside-foot">&copy; <span data-year>2026</span> Alumni Connect</p>
+    </aside>
+
+    <main class="auth-main" id="main">
+      <div class="auth-card">
+        <a class="brand auth-mobile-brand" href="index.html">
+          <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+          <span>Alumni <strong>Connect</strong></span>
+        </a>
+        <h1>Sign in</h1>
+        <p class="muted">Use the email and password you registered with.</p>
+
+        <div class="alert alert-success" id="formNotice" role="status" hidden></div>
+        <div class="alert alert-error" id="formAlert" role="alert" hidden></div>
+
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input class="input" id="email" name="email" type="email" autocomplete="username" placeholder="you@example.com" required>
+            <p class="field-error" data-error-for="email" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="input-group">
+              <input class="input" id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required>
+              <button class="toggle-btn" type="button" data-toggle-password="password" aria-label="Show password" aria-pressed="false">
+                <svg class="icon eye-on"><use href="icons.svg#i-eye"/></svg>
+                <svg class="icon eye-off" hidden><use href="icons.svg#i-eye-off"/></svg>
+              </button>
+            </div>
+            <p class="field-error" data-error-for="password" role="alert"></p>
+          </div>
+
+          <button class="btn btn-primary btn-block" id="submitBtn" type="submit">
+            <span class="spinner" aria-hidden="true"></span><span class="btn-label">Sign in</span>
+          </button>
+        </form>
+
+        <p class="auth-switch">New to Alumni Connect? <a href="register.html">Create an account</a></p>
+        <p class="auth-switch" style="margin-top:.5rem"><a href="index.html">&larr; Back to home</a></p>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

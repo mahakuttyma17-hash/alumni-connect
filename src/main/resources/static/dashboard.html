@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | Alumni Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="dashboard">
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+      <a class="brand brand-light" href="dashboard.html" aria-label="Alumni Connect dashboard">
+        <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+        <span>Alumni <strong>Connect</strong></span>
+      </a>
+      <div class="sidebar-label">Menu</div>
+      <nav class="sidebar-nav" aria-label="Portal navigation">
+        <a class="sidebar-link" href="dashboard.html" aria-current="page"><svg class="icon"><use href="icons.svg#i-grid"/></svg> Dashboard</a>
+        <a class="sidebar-link" href="directory.html"><svg class="icon"><use href="icons.svg#i-users"/></svg> Alumni Directory</a>
+        <a class="sidebar-link" href="contributions.html"><svg class="icon"><use href="icons.svg#i-heart"/></svg> Contributions</a>
+        <a class="sidebar-link" href="profile.html"><svg class="icon"><use href="icons.svg#i-user"/></svg> My Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="sidebar-link" type="button" data-logout><svg class="icon"><use href="icons.svg#i-log-out"/></svg> Logout</button>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn sidebar-toggle" id="sidebarToggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+            <svg class="icon"><use href="icons.svg#i-menu"/></svg>
+          </button>
+          <form class="search-box topbar-search" role="search" data-directory-search>
+            <svg class="icon"><use href="icons.svg#i-search"/></svg>
+            <label class="sr-only" for="topSearch">Search the alumni directory</label>
+            <input class="input" id="topSearch" type="search" placeholder="Search the directory" autocomplete="off">
+          </form>
+        </div>
+        <div class="topbar-user">
+          <div class="user-meta"><strong data-user-name>&nbsp;</strong><span data-user-role>&nbsp;</span></div>
+          <span class="avatar" data-user-avatar aria-hidden="true">?</span>
+        </div>
+      </header>
+
+      <main class="page" id="main">
+        <div class="state" id="dashLoading">
+          <div class="loader" role="status" aria-label="Loading"></div>
+          <p>Loading your dashboard…</p>
+        </div>
+
+        <div class="state state-error" id="dashError" hidden>
+          <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-alert-circle"/></svg></div>
+          <h3>We couldn't load your dashboard</h3>
+          <p id="dashErrorMsg">Something went wrong.</p>
+          <button class="btn btn-primary" id="dashRetry" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-refresh"/></svg> Try again</button>
+        </div>
+
+        <div id="dashContent" hidden>
+          <section class="welcome" aria-labelledby="greeting">
+            <div>
+              <h1 id="greeting">Welcome back</h1>
+              <p id="welcomeSub">Here is a snapshot of your alumni activity.</p>
+            </div>
+            <a class="btn btn-accent" id="welcomeCta" href="profile.html">Complete your profile</a>
+          </section>
+
+          <section class="stat-grid" aria-label="Your statistics">
+            <div class="stat-card">
+              <div class="feature-icon"><svg class="icon icon-lg"><use href="icons.svg#i-users"/></svg></div>
+              <div><div class="num" id="statAlumni">–</div><div class="lbl">Alumni in the community</div></div>
+            </div>
+            <div class="stat-card">
+              <div class="feature-icon is-coral"><svg class="icon icon-lg"><use href="icons.svg#i-heart"/></svg></div>
+              <div><div class="num" id="statContrib">–</div><div class="lbl">My contributions</div></div>
+            </div>
+            <div class="stat-card">
+              <div class="feature-icon is-navy"><svg class="icon icon-lg"><use href="icons.svg#i-check-circle"/></svg></div>
+              <div><div class="num" id="statCompletion">–</div><div class="lbl">Profile completion</div></div>
+            </div>
+            <div class="stat-card">
+              <div class="feature-icon"><svg class="icon icon-lg"><use href="icons.svg#i-cap"/></svg></div>
+              <div><div class="num" id="statBatch">–</div><div class="lbl">My graduation batch</div></div>
+            </div>
+          </section>
+
+          <div class="layout-2">
+            <div class="stack">
+              <section class="panel" aria-labelledby="profileTitle">
+                <div class="panel-head">
+                  <h2 id="profileTitle">My profile summary</h2>
+                  <a class="btn btn-secondary btn-sm" href="profile.html"><svg class="icon icon-sm"><use href="icons.svg#i-edit"/></svg> Edit profile</a>
+                </div>
+                <div class="panel-body">
+                  <div class="progress" role="progressbar" aria-label="Profile completion" aria-valuemin="0" aria-valuemax="100" id="completionTrack"><span id="completionBar"></span></div>
+                  <p class="muted mt-1" id="completionText" style="font-size:.85rem"></p>
+                  <dl class="kv mt-2" id="profileKv"></dl>
+                </div>
+              </section>
+
+              <section class="panel" aria-labelledby="recentTitle">
+                <div class="panel-head">
+                  <h2 id="recentTitle">Recent contributions</h2>
+                  <a class="btn btn-secondary btn-sm" href="contributions.html">View all</a>
+                </div>
+                <div class="panel-body">
+                  <ul class="list" id="recentList"></ul>
+                  <div class="state" id="recentEmpty" hidden style="padding:2rem 1rem">
+                    <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-heart"/></svg></div>
+                    <h3>No contributions yet</h3>
+                    <p>Record a donation, volunteering or another way you have given back.</p>
+                    <a class="btn btn-primary btn-sm" href="contributions.html">Add a contribution</a>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div class="stack">
+              <section class="panel" aria-labelledby="quickTitle">
+                <div class="panel-head"><h2 id="quickTitle">Quick links</h2></div>
+                <div class="panel-body">
+                  <div class="quick-links">
+                    <a class="quick-link" href="directory.html"><svg class="icon"><use href="icons.svg#i-users"/></svg> Browse the directory <svg class="icon icon-sm"><use href="icons.svg#i-chevron-right"/></svg></a>
+                    <a class="quick-link" href="contributions.html"><svg class="icon"><use href="icons.svg#i-heart"/></svg> Add a contribution <svg class="icon icon-sm"><use href="icons.svg#i-chevron-right"/></svg></a>
+                    <a class="quick-link" href="profile.html"><svg class="icon"><use href="icons.svg#i-user"/></svg> Update my profile <svg class="icon icon-sm"><use href="icons.svg#i-chevron-right"/></svg></a>
+                  </div>
+                </div>
+              </section>
+
+              <section class="panel" aria-labelledby="infoTitle">
+                <div class="panel-head"><h2 id="infoTitle">Community information</h2></div>
+                <div class="panel-body">
+                  <ul class="list">
+                    <li class="list-item">
+                      <span class="feature-icon sm"><svg class="icon"><use href="icons.svg#i-shield"/></svg></span>
+                      <div class="grow"><div class="title">Directory visibility</div><div class="sub" id="visibilityInfo">–</div></div>
+                    </li>
+                    <li class="list-item">
+                      <span class="feature-icon sm is-coral"><svg class="icon"><use href="icons.svg#i-info"/></svg></span>
+                      <div class="grow"><div class="title">About contributions</div><div class="sub">Entries are records only. No payment is processed here, and an administrator reviews each one.</div></div>
+                    </li>
+                    <li class="list-item">
+                      <span class="feature-icon sm is-navy"><svg class="icon"><use href="icons.svg#i-message"/></svg></span>
+                      <div class="grow"><div class="title">Mentorship</div><div class="sub">Planned for a future version.</div></div>
+                    </li>
+                  </ul>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+        <p class="muted center mt-3" style="font-size:.85rem">&copy; <span data-year>2026</span> Alumni Connect</p>
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

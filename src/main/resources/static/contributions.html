@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contributions | Alumni Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="contributions">
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+      <a class="brand brand-light" href="dashboard.html" aria-label="Alumni Connect dashboard">
+        <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+        <span>Alumni <strong>Connect</strong></span>
+      </a>
+      <div class="sidebar-label">Menu</div>
+      <nav class="sidebar-nav" aria-label="Portal navigation">
+        <a class="sidebar-link" href="dashboard.html"><svg class="icon"><use href="icons.svg#i-grid"/></svg> Dashboard</a>
+        <a class="sidebar-link" href="directory.html"><svg class="icon"><use href="icons.svg#i-users"/></svg> Alumni Directory</a>
+        <a class="sidebar-link" href="contributions.html" aria-current="page"><svg class="icon"><use href="icons.svg#i-heart"/></svg> Contributions</a>
+        <a class="sidebar-link" href="profile.html"><svg class="icon"><use href="icons.svg#i-user"/></svg> My Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="sidebar-link" type="button" data-logout><svg class="icon"><use href="icons.svg#i-log-out"/></svg> Logout</button>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn sidebar-toggle" id="sidebarToggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+            <svg class="icon"><use href="icons.svg#i-menu"/></svg>
+          </button>
+          <form class="search-box topbar-search" role="search" data-directory-search>
+            <svg class="icon"><use href="icons.svg#i-search"/></svg>
+            <label class="sr-only" for="topSearch">Search the alumni directory</label>
+            <input class="input" id="topSearch" type="search" placeholder="Search the directory" autocomplete="off">
+          </form>
+        </div>
+        <div class="topbar-user">
+          <div class="user-meta"><strong data-user-name>&nbsp;</strong><span data-user-role>&nbsp;</span></div>
+          <span class="avatar" data-user-avatar aria-hidden="true">?</span>
+        </div>
+      </header>
+
+      <main class="page" id="main">
+        <div class="page-head">
+          <div>
+            <h1>Contributions</h1>
+            <p>Record the ways you give back: donations, volunteering time or anything else that supports the community.</p>
+          </div>
+        </div>
+
+        <div class="alert alert-info" role="note" style="margin-bottom:1.25rem">
+          <svg class="icon"><use href="icons.svg#i-info"/></svg>
+          <span><strong>This page keeps a record only.</strong> No payment is taken here, and a donation entry is not proof that money was received. An administrator reviews each entry and marks it Verified or Rejected.</span>
+        </div>
+
+        <section class="panel" aria-labelledby="formTitle">
+          <div class="panel-head"><h2 id="formTitle">Add a contribution</h2></div>
+          <div class="panel-body">
+            <div class="alert alert-error" id="formAlert" role="alert" hidden style="margin-bottom:1.1rem"></div>
+            <form id="contributionForm" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="type">Contribution type <span class="req">*</span></label>
+                  <select class="select" id="type" name="type">
+                    <option value="DONATION">Donation</option>
+                    <option value="VOLUNTEERING">Volunteering</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                  <p class="field-error" data-error-for="type" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label for="contributionDate">Date <span class="req">*</span></label>
+                  <input class="input" id="contributionDate" name="contributionDate" type="date" required>
+                  <p class="field-error" data-error-for="contributionDate" role="alert"></p>
+                </div>
+                <div class="field span-2" id="amountField">
+                  <label for="amount">Amount (₹) <span class="req">*</span></label>
+                  <input class="input" id="amount" name="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="e.g. 5000">
+                  <p class="field-error" data-error-for="amount" role="alert"></p>
+                </div>
+                <div class="field span-2">
+                  <label for="description">Description <span class="req">*</span></label>
+                  <textarea class="textarea" id="description" name="description" maxlength="500" placeholder="Describe what you contributed, for example the fund, event or activity." required></textarea>
+                  <p class="field-error" data-error-for="description" role="alert"></p>
+                </div>
+                <div class="span-2 form-actions">
+                  <button class="btn btn-primary" id="submitBtn" type="submit"><span class="spinner" aria-hidden="true"></span><span class="btn-label">Submit contribution</span></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="panel mt-3" aria-labelledby="listTitle">
+          <div class="panel-head">
+            <h2 id="listTitle">My contributions</h2>
+            <span class="muted" id="listCount" style="font-size:.9rem"></span>
+          </div>
+
+          <div class="state" id="listLoading">
+            <div class="loader" role="status" aria-label="Loading"></div>
+            <p>Loading your contributions…</p>
+          </div>
+          <div class="state state-error" id="listError" hidden>
+            <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-alert-circle"/></svg></div>
+            <h3>We couldn't load your contributions</h3>
+            <p id="listErrorMsg">Something went wrong.</p>
+            <button class="btn btn-primary" id="listRetry" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-refresh"/></svg> Try again</button>
+          </div>
+          <div class="state" id="listEmpty" hidden>
+            <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-inbox"/></svg></div>
+            <h3>No contributions yet</h3>
+            <p>Entries you submit will appear here.</p>
+          </div>
+          <div class="table-wrap" id="listWrap" hidden>
+            <table class="table">
+              <thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody id="listBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Profile | Alumni Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="profile">
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+      <a class="brand brand-light" href="dashboard.html" aria-label="Alumni Connect dashboard">
+        <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+        <span>Alumni <strong>Connect</strong></span>
+      </a>
+      <div class="sidebar-label">Menu</div>
+      <nav class="sidebar-nav" aria-label="Portal navigation">
+        <a class="sidebar-link" href="dashboard.html"><svg class="icon"><use href="icons.svg#i-grid"/></svg> Dashboard</a>
+        <a class="sidebar-link" href="directory.html"><svg class="icon"><use href="icons.svg#i-users"/></svg> Alumni Directory</a>
+        <a class="sidebar-link" href="contributions.html"><svg class="icon"><use href="icons.svg#i-heart"/></svg> Contributions</a>
+        <a class="sidebar-link" href="profile.html" aria-current="page"><svg class="icon"><use href="icons.svg#i-user"/></svg> My Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="sidebar-link" type="button" data-logout><svg class="icon"><use href="icons.svg#i-log-out"/></svg> Logout</button>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn sidebar-toggle" id="sidebarToggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+            <svg class="icon"><use href="icons.svg#i-menu"/></svg>
+          </button>
+          <form class="search-box topbar-search" role="search" data-directory-search>
+            <svg class="icon"><use href="icons.svg#i-search"/></svg>
+            <label class="sr-only" for="topSearch">Search the alumni directory</label>
+            <input class="input" id="topSearch" type="search" placeholder="Search the directory" autocomplete="off">
+          </form>
+        </div>
+        <div class="topbar-user">
+          <div class="user-meta"><strong data-user-name>&nbsp;</strong><span data-user-role>&nbsp;</span></div>
+          <span class="avatar" data-user-avatar aria-hidden="true">?</span>
+        </div>
+      </header>
+
+      <main class="page" id="main">
+        <div class="page-head">
+          <div>
+            <h1>My profile</h1>
+            <p>Keep your details current so classmates can find you.</p>
+          </div>
+        </div>
+
+        <div class="state" id="profileLoading">
+          <div class="loader" role="status" aria-label="Loading"></div>
+          <p>Loading your profile…</p>
+        </div>
+
+        <div class="state state-error" id="profileError" hidden>
+          <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-alert-circle"/></svg></div>
+          <h3>We couldn't load your profile</h3>
+          <p id="profileErrorMsg">Something went wrong.</p>
+          <button class="btn btn-primary" id="profileRetry" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-refresh"/></svg> Try again</button>
+        </div>
+
+        <div class="layout-2" id="profileWrap" hidden>
+          <form class="panel" id="profileForm" novalidate>
+            <div class="panel-head"><h2>Personal and professional details</h2></div>
+            <div class="panel-body">
+              <div class="alert alert-error" id="formAlert" role="alert" hidden style="margin-bottom:1.1rem"></div>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="fullName">Full name <span class="req">*</span></label>
+                  <input class="input" id="fullName" name="fullName" type="text" maxlength="100" autocomplete="name" required>
+                  <p class="field-error" data-error-for="fullName" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label for="email">Email address</label>
+                  <input class="input" id="email" name="email" type="email" readonly aria-describedby="emailHint">
+                  <p class="field-hint" id="emailHint">Your email is your login. Ask an administrator if it must change.</p>
+                </div>
+                <div class="field">
+                  <label for="phone">Phone number</label>
+                  <input class="input" id="phone" name="phone" type="tel" maxlength="20" autocomplete="tel" placeholder="Optional">
+                  <p class="field-hint">Never shown in the directory.</p>
+                  <p class="field-error" data-error-for="phone" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label for="city">City</label>
+                  <input class="input" id="city" name="city" type="text" maxlength="80" placeholder="e.g. Chennai">
+                  <p class="field-error" data-error-for="city" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label for="department">Department <span class="req">*</span></label>
+                  <select class="select" id="department" name="department" required></select>
+                  <p class="field-error" data-error-for="department" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label for="degree">Degree <span class="req">*</span></label>
+                  <select class="select" id="degree" name="degree" required></select>
+                  <p class="field-error" data-error-for="degree" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label for="graduationYear">Graduation year <span class="req">*</span></label>
+                  <input class="input" id="graduationYear" name="graduationYear" type="number" inputmode="numeric" min="1950" required>
+                  <p class="field-error" data-error-for="graduationYear" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label for="company">Company</label>
+                  <input class="input" id="company" name="company" type="text" maxlength="100" placeholder="Current employer">
+                  <p class="field-error" data-error-for="company" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label for="jobTitle">Job title</label>
+                  <input class="input" id="jobTitle" name="jobTitle" type="text" maxlength="100" placeholder="e.g. Software Engineer">
+                  <p class="field-error" data-error-for="jobTitle" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label for="linkedinUrl">LinkedIn profile</label>
+                  <input class="input" id="linkedinUrl" name="linkedinUrl" type="url" maxlength="200" placeholder="https://www.linkedin.com/in/your-name">
+                  <p class="field-error" data-error-for="linkedinUrl" role="alert"></p>
+                </div>
+                <div class="field span-2">
+                  <label for="bio">Bio</label>
+                  <textarea class="textarea" id="bio" name="bio" maxlength="500" placeholder="A few lines about you, your work and your interests."></textarea>
+                  <p class="field-hint"><span id="bioCount">0</span>/500 characters</p>
+                  <p class="field-error" data-error-for="bio" role="alert"></p>
+                </div>
+                <div class="span-2">
+                  <label class="check">
+                    <input type="checkbox" id="showInDirectory" name="showInDirectory">
+                    <span>Show my profile in the alumni directory. Only name, department, degree, batch, job title, company, city and LinkedIn are shown.</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="panel-foot">
+              <a class="btn btn-secondary" href="dashboard.html">Cancel</a>
+              <button class="btn btn-primary" id="submitBtn" type="submit"><span class="spinner" aria-hidden="true"></span><span class="btn-label">Save changes</span></button>
+            </div>
+          </form>
+
+          <div class="stack">
+            <section class="panel">
+              <div class="panel-body center">
+                <span class="avatar avatar-lg" id="asideAvatar" aria-hidden="true" style="margin:0 auto .75rem">?</span>
+                <h2 id="asideName" style="font-size:1.1rem">&nbsp;</h2>
+                <p class="muted truncate" id="asideEmail">&nbsp;</p>
+                <p class="mt-1"><span class="badge badge-teal">Alumnus</span></p>
+              </div>
+            </section>
+            <section class="panel">
+              <div class="panel-head"><h2>Privacy</h2></div>
+              <div class="panel-body">
+                <ul class="checklist" style="margin-top:0">
+                  <li><svg class="icon"><use href="icons.svg#i-check-circle"/></svg><span>You can only view and edit your own profile.</span></li>
+                  <li><svg class="icon"><use href="icons.svg#i-check-circle"/></svg><span>Your email and phone are never shown in the directory.</span></li>
+                  <li><svg class="icon"><use href="icons.svg#i-check-circle"/></svg><span>Untick the directory option to hide your profile at any time.</span></li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

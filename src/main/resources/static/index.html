@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alumni Connect | Alumni Management System</title>
+  <meta name="description" content="Alumni Connect brings graduates together to network, grow their careers and give back.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Alumni Connect home">
+        <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+        <span>Alumni <strong>Connect</strong></span>
+      </a>
+      <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-controls="siteNav" aria-expanded="false">
+        <svg class="icon"><use href="icons.svg#i-menu"/></svg>
+      </button>
+      <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+        <a class="nav-link" href="index.html" aria-current="page">Home</a>
+        <a class="nav-link" href="directory.html">Alumni Directory</a>
+        <a class="nav-link" href="contributions.html">Contributions</a>
+        <div class="nav-actions" id="navAuth">
+          <a class="nav-link" href="login.html">Login</a>
+          <a class="btn btn-primary btn-sm" href="register.html">Register</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <span class="eyebrow">Alumni Management System</span>
+          <h1>Stay connected to the community that <span class="hl">shaped you</span>.</h1>
+          <p class="hero-lead">Alumni Connect brings graduates together in one place: find classmates, follow each other's careers, and give back to the institution that started it all.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="register.html">Join the network <svg class="icon icon-sm"><use href="icons.svg#i-arrow-right"/></svg></a>
+            <a class="btn btn-secondary" href="directory.html">Browse the directory</a>
+          </div>
+          <p class="hero-note"><svg class="icon icon-sm"><use href="icons.svg#i-shield"/></svg> You decide whether your profile appears in the directory.</p>
+        </div>
+
+        <svg class="hero-illustration" viewBox="0 0 520 420" role="img" aria-label="Illustration of alumni connected in a network around a graduation cap">
+          <rect class="il-panel" x="0" y="0" width="520" height="420" rx="28"/>
+          <circle class="il-ring" cx="260" cy="210" r="150"/>
+          <path class="il-line" d="M260 210 L105 105"/>
+          <path class="il-line" d="M260 210 L420 95"/>
+          <path class="il-line" d="M260 210 L90 310"/>
+          <path class="il-line" d="M260 210 L435 315"/>
+          <path class="il-line" d="M105 105 L90 310"/>
+          <circle class="il-coral" cx="268" cy="52" r="14"/>
+          <circle class="il-teal" cx="252" cy="372" r="14"/>
+          <circle class="il-teal" cx="105" cy="105" r="34"/><text class="il-text" x="105" y="105">AK</text>
+          <circle class="il-coral" cx="420" cy="95" r="34"/><text class="il-text il-text-dark" x="420" y="95">RS</text>
+          <circle class="il-navy" cx="90" cy="310" r="34"/><text class="il-text" x="90" y="310">MP</text>
+          <circle class="il-teal" cx="435" cy="315" r="34"/><text class="il-text" x="435" y="315">JD</text>
+          <circle class="il-white" cx="260" cy="210" r="76"/>
+          <circle class="il-navy" cx="260" cy="210" r="64"/>
+          <g transform="translate(260 210)">
+            <path class="il-white" d="M-30 -8 L0 -24 L30 -8 L0 8 Z"/>
+            <path class="il-stroke-white" d="M-18 2 V16 C-8 25 8 25 18 16 V2"/>
+            <path class="il-stroke-coral" d="M30 -8 V12"/>
+          </g>
+          <rect class="il-chip" x="58" y="26" width="140" height="34" rx="17"/>
+          <circle class="il-teal" cx="78" cy="43" r="5"/>
+          <text class="il-chip-text" x="134" y="43">Career growth</text>
+          <rect class="il-chip" x="322" y="360" width="140" height="34" rx="17"/>
+          <circle class="il-coral" cx="342" cy="377" r="5"/>
+          <text class="il-chip-text" x="398" y="377">Giving back</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container split">
+        <div>
+          <span class="eyebrow">About the platform</span>
+          <h2 class="mt-2">A single home for your alumni community</h2>
+          <p class="muted mt-2">Alumni Connect replaces scattered spreadsheets and group chats with one secure portal. Alumni keep their own profiles up to date, administrators manage records responsibly, and everyone can see how the community is growing.</p>
+          <ul class="checklist">
+            <li><svg class="icon"><use href="icons.svg#i-check-circle"/></svg><span>Create a personal alumni profile and choose whether it appears in the directory.</span></li>
+            <li><svg class="icon"><use href="icons.svg#i-check-circle"/></svg><span>Search peers by name, department, batch, company or job title.</span></li>
+            <li><svg class="icon"><use href="icons.svg#i-check-circle"/></svg><span>Record donations, volunteering and other contributions.</span></li>
+            <li><svg class="icon"><use href="icons.svg#i-check-circle"/></svg><span>Administrators manage alumni records and review contributions.</span></li>
+          </ul>
+        </div>
+        <div class="preview-card" aria-label="Sample alumni profile">
+          <span class="badge badge-coral preview-tag">Illustrative sample</span>
+          <div class="preview-top">
+            <span class="avatar avatar-lg">SP</span>
+            <div>
+              <div class="alumni-name">Sample Alumnus</div>
+              <div class="alumni-sub">B.E. Computer Science · Batch of 2020</div>
+            </div>
+          </div>
+          <div class="preview-lines">
+            <div><svg class="icon icon-sm"><use href="icons.svg#i-briefcase"/></svg> Software Engineer · Example Company</div>
+            <div><svg class="icon icon-sm"><use href="icons.svg#i-map-pin"/></svg> Chennai</div>
+            <div><svg class="icon icon-sm"><use href="icons.svg#i-linkedin"/></svg> LinkedIn profile link</div>
+          </div>
+          <div class="tag-row"><span class="badge badge-teal">Computer Science</span><span class="badge badge-navy">2020</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section section-alt" id="features">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">What you can do</span>
+          <h2>Everything the community needs, in one place</h2>
+          <p>Four ways Alumni Connect helps graduates stay involved long after convocation.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="feature-icon"><svg class="icon icon-lg"><use href="icons.svg#i-users"/></svg></div>
+            <h3>Alumni networking</h3>
+            <p>Search the directory by department, batch, company or role and find people worth reconnecting with.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon is-navy"><svg class="icon icon-lg"><use href="icons.svg#i-trending-up"/></svg></div>
+            <h3>Career growth</h3>
+            <p>Keep your job title and company current, and see where fellow graduates are building their careers.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon is-coral"><svg class="icon icon-lg"><use href="icons.svg#i-message"/></svg></div>
+            <h3>Mentorship <span class="badge badge-muted">Coming soon</span></h3>
+            <p>Matching experienced alumni with current students is planned for a future version.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon"><svg class="icon icon-lg"><use href="icons.svg#i-heart"/></svg></div>
+            <h3>Contributions</h3>
+            <p>Record donations, volunteering and other ways you give back. Entries are reviewed by administrators.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-band" aria-labelledby="statsTitle">
+      <div class="container">
+        <h2 id="statsTitle">The community at a glance</h2>
+        <div class="stats-grid">
+          <div><div class="stat-value" data-stat="alumniCount">–</div><div class="stat-label">Alumni in the directory</div></div>
+          <div><div class="stat-value" data-stat="departmentCount">–</div><div class="stat-label">Departments represented</div></div>
+          <div><div class="stat-value" data-stat="batchCount">–</div><div class="stat-label">Graduating batches</div></div>
+          <div><div class="stat-value" data-stat="contributionCount">–</div><div class="stat-label">Contributions recorded</div></div>
+        </div>
+        <p class="stats-note" id="statsNote">Live counts from the Alumni Connect database.</p>
+      </div>
+    </section>
+
+    <!-- HOW TO PARTICIPATE -->
+    <section class="section" id="participate">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Get involved</span>
+          <h2>Four steps to join in</h2>
+        </div>
+        <div class="steps">
+          <div class="step"><h3>Create your account</h3><p>Register with your email and graduation details.</p><a href="register.html">Register <svg class="icon icon-sm"><use href="icons.svg#i-arrow-right"/></svg></a></div>
+          <div class="step"><h3>Complete your profile</h3><p>Add your company, role, city and a short bio.</p><a href="login.html">Sign in <svg class="icon icon-sm"><use href="icons.svg#i-arrow-right"/></svg></a></div>
+          <div class="step"><h3>Find your people</h3><p>Search and filter the directory to reconnect.</p><a href="directory.html">Open directory <svg class="icon icon-sm"><use href="icons.svg#i-arrow-right"/></svg></a></div>
+          <div class="step"><h3>Give back</h3><p>Log a donation, volunteering or another contribution.</p><a href="contributions.html">Contributions <svg class="icon icon-sm"><use href="icons.svg#i-arrow-right"/></svg></a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2>Ready to reconnect?</h2>
+            <p>Create your free account in under a minute and join your batch.</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-accent" href="register.html">Create account</a>
+            <a class="btn btn-outline-light" href="login.html">Sign in</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand brand-light" href="index.html">
+            <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+            <span>Alumni <strong>Connect</strong></span>
+          </a>
+          <p>A college project that helps alumni stay connected, advance their careers and support their institution.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="directory.html">Alumni Directory</a></li>
+            <li><a href="contributions.html">Contributions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Register</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Alumni Connect. Built for Object-Oriented Software Engineering.</span>
+        <span>Statistics shown are live database counts.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

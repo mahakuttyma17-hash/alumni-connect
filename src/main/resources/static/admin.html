@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin | Alumni Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="admin">
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+      <a class="brand brand-light" href="admin.html" aria-label="Alumni Connect admin">
+        <span class="brand-mark"><svg class="icon"><use href="icons.svg#i-cap"/></svg></span>
+        <span>Alumni <strong>Connect</strong></span>
+      </a>
+      <div class="sidebar-label">Administration</div>
+      <nav class="sidebar-nav" aria-label="Admin navigation">
+        <button class="sidebar-link" type="button" data-view="overview"><svg class="icon"><use href="icons.svg#i-grid"/></svg> Overview</button>
+        <button class="sidebar-link" type="button" data-view="alumni"><svg class="icon"><use href="icons.svg#i-users"/></svg> Alumni</button>
+        <button class="sidebar-link" type="button" data-view="contributions"><svg class="icon"><use href="icons.svg#i-heart"/></svg> Contributions</button>
+      </nav>
+      <div class="sidebar-label">Site</div>
+      <nav class="sidebar-nav" aria-label="Site links">
+        <a class="sidebar-link" href="directory.html"><svg class="icon"><use href="icons.svg#i-search"/></svg> Public directory</a>
+        <a class="sidebar-link" href="index.html"><svg class="icon"><use href="icons.svg#i-compass"/></svg> Home page</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="sidebar-link" type="button" data-logout><svg class="icon"><use href="icons.svg#i-log-out"/></svg> Logout</button>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn sidebar-toggle" id="sidebarToggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+            <svg class="icon"><use href="icons.svg#i-menu"/></svg>
+          </button>
+          <span class="topbar-title" id="viewTitle">Overview</span>
+        </div>
+        <div class="topbar-user">
+          <div class="user-meta"><strong data-user-name>&nbsp;</strong><span data-user-role>&nbsp;</span></div>
+          <span class="avatar c3" data-user-avatar aria-hidden="true">?</span>
+        </div>
+      </header>
+
+      <main class="page" id="main">
+
+        <!-- ================= OVERVIEW ================= -->
+        <section data-view-panel="overview" hidden>
+          <div class="page-head">
+            <div><h1>Overview</h1><p>A live summary of alumni records and contributions.</p></div>
+            <button class="btn btn-secondary btn-sm" id="refreshStats" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-refresh"/></svg> Refresh</button>
+          </div>
+          <div class="alert alert-error" id="statsError" role="alert" hidden style="margin-bottom:1rem"></div>
+
+          <div class="stat-grid" style="margin-top:0">
+            <div class="stat-card">
+              <div class="feature-icon"><svg class="icon icon-lg"><use href="icons.svg#i-users"/></svg></div>
+              <div><div class="num" id="aStatAlumni">–</div><div class="lbl">Total alumni</div></div>
+            </div>
+            <div class="stat-card">
+              <div class="feature-icon is-navy"><svg class="icon icon-lg"><use href="icons.svg#i-file-text"/></svg></div>
+              <div><div class="num" id="aStatContrib">–</div><div class="lbl">Contributions recorded</div></div>
+            </div>
+            <div class="stat-card">
+              <div class="feature-icon is-coral"><svg class="icon icon-lg"><use href="icons.svg#i-clock"/></svg></div>
+              <div><div class="num" id="aStatPending">–</div><div class="lbl">Awaiting review</div></div>
+            </div>
+            <div class="stat-card">
+              <div class="feature-icon"><svg class="icon icon-lg"><use href="icons.svg#i-dollar"/></svg></div>
+              <div><div class="num" id="aStatAmount">–</div><div class="lbl">Verified donations</div></div>
+            </div>
+          </div>
+
+          <div class="layout-eq">
+            <section class="panel">
+              <div class="panel-head"><h2>Contributions by type</h2></div>
+              <div class="panel-body" id="byTypeList"></div>
+            </section>
+            <section class="panel">
+              <div class="panel-head"><h2>Contributions by status</h2></div>
+              <div class="panel-body" id="byStatusList"></div>
+            </section>
+          </div>
+        </section>
+
+        <!-- ================= ALUMNI ================= -->
+        <section data-view-panel="alumni" hidden>
+          <div class="page-head">
+            <div><h1>Alumni</h1><p>Add, view, edit and remove alumni records.</p></div>
+            <button class="btn btn-primary" id="addAlumniBtn" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-plus"/></svg> Add alumni</button>
+          </div>
+          <div class="panel">
+            <div class="filters-row">
+              <div class="search-box">
+                <svg class="icon"><use href="icons.svg#i-search"/></svg>
+                <label class="sr-only" for="aSearch">Search alumni</label>
+                <input class="input" id="aSearch" type="search" placeholder="Search name, email, company or job title" autocomplete="off">
+              </div>
+              <div>
+                <label class="sr-only" for="aDepartment">Department</label>
+                <select class="select" id="aDepartment"></select>
+              </div>
+              <button class="btn btn-secondary" id="aClear" type="button">Clear</button>
+            </div>
+
+            <div class="state" id="aLoading"><div class="loader" role="status" aria-label="Loading"></div><p>Loading alumni…</p></div>
+            <div class="state state-error" id="aError" hidden>
+              <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-alert-circle"/></svg></div>
+              <h3>We couldn't load alumni</h3>
+              <p id="aErrorMsg">Something went wrong.</p>
+              <button class="btn btn-primary" id="aRetry" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-refresh"/></svg> Try again</button>
+            </div>
+            <div class="state" id="aEmpty" hidden>
+              <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-inbox"/></svg></div>
+              <h3>No alumni found</h3>
+              <p>Try a different search, or add a new alumni record.</p>
+            </div>
+            <div class="table-wrap" id="aWrap" hidden>
+              <table class="table">
+                <thead><tr><th>Alumnus</th><th>Department</th><th>Batch</th><th>Role</th><th>City</th><th><span class="sr-only">Actions</span></th></tr></thead>
+                <tbody id="aBody"></tbody>
+              </table>
+            </div>
+            <nav class="pagination" id="aPagination" aria-label="Alumni pages" hidden>
+              <button class="btn btn-secondary btn-sm" id="aPrev" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-chevron-left"/></svg> Previous</button>
+              <span class="muted" id="aPageInfo" aria-live="polite"></span>
+              <button class="btn btn-secondary btn-sm" id="aNext" type="button">Next <svg class="icon icon-sm"><use href="icons.svg#i-chevron-right"/></svg></button>
+            </nav>
+          </div>
+        </section>
+
+        <!-- ================= CONTRIBUTIONS ================= -->
+        <section data-view-panel="contributions" hidden>
+          <div class="page-head">
+            <div><h1>Contributions</h1><p>Review what alumni have recorded and update each entry's status.</p></div>
+          </div>
+          <div class="panel">
+            <div class="filters-row">
+              <div>
+                <label class="sr-only" for="cType">Type</label>
+                <select class="select" id="cType">
+                  <option value="">All types</option>
+                  <option value="DONATION">Donation</option>
+                  <option value="VOLUNTEERING">Volunteering</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+              <div>
+                <label class="sr-only" for="cStatus">Status</label>
+                <select class="select" id="cStatus">
+                  <option value="">All statuses</option>
+                  <option value="PENDING">Pending review</option>
+                  <option value="VERIFIED">Verified</option>
+                  <option value="REJECTED">Rejected</option>
+                </select>
+              </div>
+              <button class="btn btn-secondary" id="cClear" type="button">Clear</button>
+            </div>
+
+            <div class="state" id="cLoading"><div class="loader" role="status" aria-label="Loading"></div><p>Loading contributions…</p></div>
+            <div class="state state-error" id="cError" hidden>
+              <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-alert-circle"/></svg></div>
+              <h3>We couldn't load contributions</h3>
+              <p id="cErrorMsg">Something went wrong.</p>
+              <button class="btn btn-primary" id="cRetry" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-refresh"/></svg> Try again</button>
+            </div>
+            <div class="state" id="cEmpty" hidden>
+              <div class="state-icon"><svg class="icon icon-lg"><use href="icons.svg#i-inbox"/></svg></div>
+              <h3>No contributions found</h3>
+              <p>Nothing matches the current filters.</p>
+            </div>
+            <div class="table-wrap" id="cWrap" hidden>
+              <table class="table">
+                <thead><tr><th>Date</th><th>Alumnus</th><th>Type</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead>
+                <tbody id="cBody"></tbody>
+              </table>
+            </div>
+            <nav class="pagination" id="cPagination" aria-label="Contribution pages" hidden>
+              <button class="btn btn-secondary btn-sm" id="cPrev" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-chevron-left"/></svg> Previous</button>
+              <span class="muted" id="cPageInfo" aria-live="polite"></span>
+              <button class="btn btn-secondary btn-sm" id="cNext" type="button">Next <svg class="icon icon-sm"><use href="icons.svg#i-chevron-right"/></svg></button>
+            </nav>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: VIEW ALUMNUS ================= -->
+  <div class="modal-backdrop" id="viewModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="viewModalTitle" tabindex="-1">
+      <div class="modal-head">
+        <h2 id="viewModalTitle">Alumni details</h2>
+        <button class="icon-btn" type="button" data-close-modal aria-label="Close"><svg class="icon"><use href="icons.svg#i-x"/></svg></button>
+      </div>
+      <div class="modal-body" id="viewBody"></div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" type="button" data-close-modal>Close</button>
+        <button class="btn btn-primary" id="viewEditBtn" type="button"><svg class="icon icon-sm"><use href="icons.svg#i-edit"/></svg> Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ADD / EDIT ================= -->
+  <div class="modal-backdrop" id="alumniModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="alumniModalTitle" tabindex="-1">
+      <div class="modal-head">
+        <h2 id="alumniModalTitle">Add alumni</h2>
+        <button class="icon-btn" type="button" data-close-modal aria-label="Close"><svg class="icon"><use href="icons.svg#i-x"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-error" id="alumniAlert" role="alert" hidden style="margin-bottom:1rem"></div>
+        <form id="alumniForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="af_fullName">Full name <span class="req">*</span></label>
+              <input class="input" id="af_fullName" name="fullName" type="text" maxlength="100" required>
+              <p class="field-error" data-error-for="fullName" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="af_email">Email address <span class="req">*</span></label>
+              <input class="input" id="af_email" name="email" type="email" maxlength="120" required>
+              <p class="field-error" data-error-for="email" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="af_phone">Phone number</label>
+              <input class="input" id="af_phone" name="phone" type="tel" maxlength="20">
+              <p class="field-error" data-error-for="phone" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="af_city">City</label>
+              <input class="input" id="af_city" name="city" type="text" maxlength="80">
+              <p class="field-error" data-error-for="city" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="af_department">Department <span class="req">*</span></label>
+              <select class="select" id="af_department" name="department" required></select>
+              <p class="field-error" data-error-for="department" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="af_degree">Degree <span class="req">*</span></label>
+              <select class="select" id="af_degree" name="degree" required></select>
+              <p class="field-error" data-error-for="degree" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="af_graduationYear">Graduation year <span class="req">*</span></label>
+              <input class="input" id="af_graduationYear" name="graduationYear" type="number" inputmode="numeric" min="1950" required>
+              <p class="field-error" data-error-for="graduationYear" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="af_company">Company</label>
+              <input class="input" id="af_company" name="company" type="text" maxlength="100">
+              <p class="field-error" data-error-for="company" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="af_jobTitle">Job title</label>
+              <input class="input" id="af_jobTitle" name="jobTitle" type="text" maxlength="100">
+              <p class="field-error" data-error-for="jobTitle" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="af_linkedinUrl">LinkedIn profile</label>
+              <input class="input" id="af_linkedinUrl" name="linkedinUrl" type="url" maxlength="200" placeholder="https://www.linkedin.com/in/…">
+              <p class="field-error" data-error-for="linkedinUrl" role="alert"></p>
+            </div>
+            <div class="field span-2">
+              <label for="af_bio">Bio</label>
+              <textarea class="textarea" id="af_bio" name="bio" maxlength="500"></textarea>
+              <p class="field-error" data-error-for="bio" role="alert"></p>
+            </div>
+            <div class="field span-2" id="pwField">
+              <label for="af_temporaryPassword">Temporary password <span class="req">*</span></label>
+              <input class="input" id="af_temporaryPassword" name="temporaryPassword" type="text" maxlength="64" autocomplete="off" placeholder="Share this with the alumnus so they can sign in">
+              <p class="field-hint">8–64 characters with at least one letter and one number.</p>
+              <p class="field-error" data-error-for="temporaryPassword" role="alert"></p>
+            </div>
+            <div class="span-2">
+              <label class="check">
+                <input type="checkbox" id="af_showInDirectory" name="showInDirectory" checked>
+                <span>Show this alumnus in the public directory.</span>
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" type="button" data-close-modal>Cancel</button>
+        <button class="btn btn-primary" id="alumniSubmit" type="submit" form="alumniForm"><span class="spinner" aria-hidden="true"></span><span class="btn-label">Save</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CONFIRM DELETE ================= -->
+  <div class="modal-backdrop" id="deleteModal" hidden>
+    <div class="modal modal-sm" role="alertdialog" aria-modal="true" aria-labelledby="deleteModalTitle" aria-describedby="deleteModalText" tabindex="-1">
+      <div class="modal-head">
+        <h2 id="deleteModalTitle">Delete alumni record?</h2>
+        <button class="icon-btn" type="button" data-close-modal aria-label="Close"><svg class="icon"><use href="icons.svg#i-x"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <p id="deleteModalText">This will permanently delete <strong id="deleteName">this alumnus</strong>, their login account and all of their contributions. This cannot be undone.</p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" type="button" data-close-modal>Cancel</button>
+        <button class="btn btn-danger" id="confirmDelete" type="button"><span class="spinner" aria-hidden="true"></span><span class="btn-label">Delete permanently</span></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
